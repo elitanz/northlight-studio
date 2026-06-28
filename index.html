@@ -60,7 +60,10 @@
   h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:400;line-height:1.06;letter-spacing:-.01em}
   a{color:inherit;text-decoration:none}
   .eyebrow{font-family:'Space Grotesk',monospace;text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;font-weight:500;color:var(--accent)}
-  .accent-word{font-style:italic;color:var(--accent)}
+  .accent-word{font-style:italic;background:linear-gradient(102deg,var(--accent) 0%,#3f9e74 55%,var(--accent-2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+  .status-pill{display:inline-flex;align-items:center;gap:8px;font-family:'Space Grotesk',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:rgba(28,92,67,.08);border:1px solid rgba(28,92,67,.28);padding:7px 14px;border-radius:100px}
+  .status-pill .sun{width:13px;height:9px;flex:none}
+  .hero-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 
   /* buttons */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:100px;font-size:.94rem;font-weight:600;font-family:inherit;cursor:pointer;border:1px solid transparent;transition:transform .25s var(--ease),background .25s,box-shadow .25s,color .2s;-webkit-appearance:none;appearance:none}
@@ -80,8 +83,10 @@
   .nav-inner{max-width:var(--max);margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
   nav.scrolled .nav-inner{padding-top:12px;padding-bottom:12px}
   @media(max-width:560px){.nav-inner{padding:14px 22px}}
-  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.18rem}
-  .brand .dot{width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(28,92,67,.15)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'Fraunces',serif;font-size:1.22rem;font-weight:500;letter-spacing:-.015em}
+  .brand .mark{flex:none;display:block;transition:transform .55s var(--ease)}
+  .brand:hover .mark{transform:translateY(-2px) rotate(-5deg)}
+  .brand .studio{color:var(--ink-soft)}
   .nav-links{display:flex;align-items:center;gap:28px}
   .nav-links a.link{font-size:.92rem;font-weight:500;color:var(--ink-soft);transition:color .2s}
   .nav-links a.link:hover{color:var(--ink)}
@@ -103,11 +108,15 @@
   header{position:relative;overflow:hidden}
   .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
     background:
-      radial-gradient(60% 50% at 88% 8%, rgba(44,126,92,.16), transparent 70%),
-      radial-gradient(50% 40% at 6% 30%, rgba(201,138,43,.08), transparent 70%);}
+      radial-gradient(75% 65% at 82% -8%, rgba(44,126,92,.30), transparent 62%),
+      radial-gradient(42% 42% at 100% 6%, rgba(72,178,134,.24), transparent 60%),
+      radial-gradient(50% 45% at 50% -20%, rgba(28,92,67,.14), transparent 60%),
+      radial-gradient(45% 50% at -5% 42%, rgba(201,138,43,.12), transparent 60%);}
+  .hero-bg::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");}
   .hero{position:relative;z-index:1;display:grid;grid-template-columns:1.04fr .96fr;gap:54px;align-items:center;padding:170px 0 96px}
   .hero>*{min-width:0}
-  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:44px;padding:140px 0 70px}}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:40px;padding:116px 0 56px}}
   h1{font-size:clamp(2.05rem,6.2vw,4.4rem);margin:18px 0 0;overflow-wrap:break-word}
   .lede{font-size:clamp(1.04rem,1.6vw,1.26rem);color:var(--ink-soft);max-width:540px;margin-top:24px}
   .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
@@ -133,8 +142,19 @@
 
   .hero-rule{height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 
+  /* ---------- MARQUEE ---------- */
+  .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:17px 0;background:var(--paper-2);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 11%,#000 89%,transparent);mask-image:linear-gradient(90deg,transparent,#000 11%,#000 89%,transparent)}
+  .marquee .track{display:flex;width:max-content;animation:scroll-x 34s linear infinite}
+  .marquee:hover .track{animation-play-state:paused}
+  .marquee .grp{display:flex;align-items:center;gap:24px;padding-right:24px;white-space:nowrap;font-family:'Space Grotesk',monospace;text-transform:uppercase;letter-spacing:.13em;font-size:.8rem;color:var(--ink-soft)}
+  .marquee .grp em{font-style:normal;color:var(--accent);font-weight:600}
+  .marquee .grp i{font-style:normal;color:var(--accent-2)}
+  @keyframes scroll-x{to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.marquee .track{animation:none}}
+
   /* ---------- STATS ---------- */
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:50px 0;border-top:1px solid var(--line)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:64px 0 50px}
   .stat .num{font-family:'Fraunces',serif;font-size:clamp(2.4rem,5vw,3.4rem);line-height:1}
   .stat .lab{color:var(--ink-soft);font-size:.95rem;margin-top:8px}
   @media(max-width:680px){.stats{grid-template-columns:1fr;gap:28px}}
@@ -219,7 +239,14 @@
 
 <nav id="nav">
   <div class="nav-inner">
-    <a class="brand" href="#top"><span class="dot"></span> Northlight Studio</a>
+    <a class="brand" href="#top" aria-label="Northlight Studio home">
+      <svg class="mark" width="32" height="21" viewBox="0 0 40 26" fill="none" aria-hidden="true">
+        <path d="M3 23.5 A17 17 0 0 1 37 23.5" stroke="#1C5C43" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M9.5 23.5 A10.5 10.5 0 0 1 30.5 23.5" stroke="#2C7E5C" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M16 23.5 A4 4 0 0 1 24 23.5" stroke="#C98A2B" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <span>Northlight <span class="studio">Studio</span></span>
+    </a>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navlinks">
       <a class="link" href="#work">Work</a>
@@ -234,7 +261,13 @@
   <div class="hero-bg"></div>
   <div class="wrap"><div class="hero">
     <div class="hero-text">
-      <span class="eyebrow reveal">Web design studio · Minneapolis, MN</span>
+      <div class="hero-top reveal">
+        <span class="status-pill">
+          <svg class="sun" viewBox="0 0 40 26" fill="none" aria-hidden="true"><path d="M4 23 A16 16 0 0 1 36 23" stroke="#1C5C43" stroke-width="3" stroke-linecap="round"/><path d="M14 23 A6 6 0 0 1 26 23" stroke="#C98A2B" stroke-width="3" stroke-linecap="round"/></svg>
+          Now booking new projects
+        </span>
+        <span class="eyebrow">Web design studio · Minneapolis, MN</span>
+      </div>
       <h1 class="reveal">Websites that make a local business <span class="accent-word">the obvious choice.</span></h1>
       <p class="lede reveal">Northlight Studio designs and builds fast, premium websites for cafés, restaurants, and trades — built from your real story, reviews, and photos. Live in days, not months.</p>
       <div class="hero-cta reveal">
@@ -255,8 +288,14 @@
       </div>
     </div>
   </div></div>
-  <div class="wrap"><div class="hero-rule"></div></div>
 </header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span class="grp"><em>Recently&nbsp;built</em><i>✦</i> Amboy Cottage Café <i>✦</i> Mike Miller Plumbing <i>✦</i> Honest Auto <i>✦</i> Brad Donahue Window Cleaning <i>✦</i> Christine's Sewing Alterations <i>✦</i> Greek Village <i>✦</i> Windmill Cafe <i>✦</i> Kimchee Korean <i>✦</i></span>
+    <span class="grp"><em>Recently&nbsp;built</em><i>✦</i> Amboy Cottage Café <i>✦</i> Mike Miller Plumbing <i>✦</i> Honest Auto <i>✦</i> Brad Donahue Window Cleaning <i>✦</i> Christine's Sewing Alterations <i>✦</i> Greek Village <i>✦</i> Windmill Cafe <i>✦</i> Kimchee Korean <i>✦</i></span>
+  </div>
+</div>
 
 <section style="padding-top:0">
   <div class="wrap">
@@ -369,7 +408,14 @@
 
 <footer>
   <div class="wrap foot">
-    <a class="brand" href="#top"><span class="dot" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent)"></span> Northlight Studio</a>
+    <a class="brand" href="#top">
+      <svg class="mark" width="30" height="20" viewBox="0 0 40 26" fill="none" aria-hidden="true">
+        <path d="M3 23.5 A17 17 0 0 1 37 23.5" stroke="#1C5C43" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M9.5 23.5 A10.5 10.5 0 0 1 30.5 23.5" stroke="#2C7E5C" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M16 23.5 A4 4 0 0 1 24 23.5" stroke="#C98A2B" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <span>Northlight <span class="studio">Studio</span></span>
+    </a>
     <div>Minneapolis, Minnesota · <a href="tel:+16124038376">612-403-8376</a></div>
     <div>© <span id="yr"></span> Northlight Studio — built by Eli.</div>
   </div>
