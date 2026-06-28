@@ -20,7 +20,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
 
-<!-- JSON-LD structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -37,13 +36,14 @@
 
 <style>
   :root{
-    --paper:#F7F5EF;        /* warm paper */
-    --paper-2:#EFEBE1;      /* slightly deeper surface */
-    --ink:#16150F;          /* near-black */
-    --ink-soft:#4A483F;     /* muted body */
-    --line:#DAD4C7;         /* hairlines */
-    --accent:#1C5C43;       /* evergreen / northlight */
-    --accent-2:#C98A2B;     /* warm gold hairline */
+    --paper:#F7F5EF;
+    --paper-2:#EFEBE1;
+    --ink:#16150F;
+    --ink-soft:#4A483F;
+    --line:#DAD4C7;
+    --accent:#1C5C43;
+    --accent-bright:#2C7E5C;
+    --accent-2:#C98A2B;
     --max:1180px;
     --r:18px;
     --ease:cubic-bezier(.22,1,.36,1);
@@ -51,70 +51,96 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter',system-ui,sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    background:var(--paper);color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
-  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:400;line-height:1.05;letter-spacing:-.01em}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px;width:100%}
+  @media(max-width:560px){.wrap{padding:0 22px}}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:400;line-height:1.06;letter-spacing:-.01em}
   a{color:inherit;text-decoration:none}
-  .eyebrow{
-    font-family:'Space Grotesk',monospace;
-    text-transform:uppercase;letter-spacing:.22em;
-    font-size:.72rem;font-weight:500;color:var(--accent);
-  }
+  .eyebrow{font-family:'Space Grotesk',monospace;text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;font-weight:500;color:var(--accent)}
   .accent-word{font-style:italic;color:var(--accent)}
 
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:100px;font-size:.94rem;font-weight:600;font-family:inherit;cursor:pointer;border:1px solid transparent;transition:transform .25s var(--ease),background .25s,box-shadow .25s,color .2s;-webkit-appearance:none;appearance:none}
+  .btn:focus-visible{outline:3px solid var(--accent-bright);outline-offset:2px}
+  .btn-accent{background:var(--accent);color:#fff;box-shadow:0 8px 22px -10px rgba(28,92,67,.7)}
+  .btn-accent:hover{background:var(--accent-bright);transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(28,92,67,.7)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(0,0,0,.6)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+  .btn-light{background:var(--paper);color:var(--ink)}
+  .btn-light:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(0,0,0,.4)}
+
   /* ---------- NAV ---------- */
-  nav{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:22px 28px;transition:all .4s var(--ease);
-  }
-  nav.scrolled{
-    background:rgba(247,245,239,.82);
-    backdrop-filter:blur(14px);
-    padding:14px 28px;
-    border-bottom:1px solid var(--line);
-  }
-  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.18rem;letter-spacing:-.01em}
+  nav{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(247,245,239,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:background .35s var(--ease),border-color .35s,box-shadow .35s,padding .35s var(--ease)}
+  nav.scrolled{background:rgba(247,245,239,.92);border-bottom-color:var(--line);box-shadow:0 4px 20px -16px rgba(0,0,0,.5)}
+  .nav-inner{max-width:var(--max);margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
+  nav.scrolled .nav-inner{padding-top:12px;padding-bottom:12px}
+  @media(max-width:560px){.nav-inner{padding:14px 22px}}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.18rem}
   .brand .dot{width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(28,92,67,.15)}
-  .nav-links{display:flex;align-items:center;gap:30px}
-  .nav-links a{font-size:.92rem;color:var(--ink-soft);transition:color .2s}
-  .nav-links a:hover{color:var(--ink)}
-  .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:11px 20px;border-radius:100px;font-size:.9rem;font-weight:500;
-    transition:transform .25s var(--ease),background .25s,box-shadow .25s;cursor:pointer;border:none;
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a.link{font-size:.92rem;font-weight:500;color:var(--ink-soft);transition:color .2s}
+  .nav-links a.link:hover{color:var(--ink)}
+  .nav-cta{padding:10px 20px}
+  .hamburger{display:none;background:none;border:none;cursor:pointer;width:42px;height:42px;border-radius:10px;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s var(--ease),opacity .2s}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  @media(max-width:760px){
+    .hamburger{display:flex}
+    .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 22px 18px;box-shadow:0 18px 30px -22px rgba(0,0,0,.5);clip-path:inset(0 0 100% 0);opacity:0;pointer-events:none;transition:clip-path .4s var(--ease),opacity .3s}
+    .nav-links.open{clip-path:inset(0 0 0 0);opacity:1;pointer-events:auto}
+    .nav-links a.link{padding:13px 4px;border-bottom:1px solid var(--line);font-size:1rem}
+    .nav-cta{margin-top:14px}
   }
-  .btn-solid{background:var(--ink);color:var(--paper)}
-  .btn-solid:hover{transform:translateY(-2px);box-shadow:0 12px 28px -12px rgba(0,0,0,.5)}
-  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
-  .btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
-  .nav-cta{padding:9px 18px}
-  @media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
 
   /* ---------- HERO ---------- */
-  header{padding:190px 0 90px;position:relative}
-  .hero-grid{display:grid;grid-template-columns:1fr;gap:32px;max-width:920px}
-  h1{font-size:clamp(2.7rem,7vw,5.3rem);margin:18px 0 0}
-  .lede{font-size:clamp(1.05rem,2vw,1.32rem);color:var(--ink-soft);max-width:640px;margin-top:26px}
-  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
-  .hero-meta{display:flex;align-items:center;gap:10px;margin-top:30px;font-size:.9rem;color:var(--ink-soft)}
+  header{position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60% 50% at 88% 8%, rgba(44,126,92,.16), transparent 70%),
+      radial-gradient(50% 40% at 6% 30%, rgba(201,138,43,.08), transparent 70%);}
+  .hero{position:relative;z-index:1;display:grid;grid-template-columns:1.04fr .96fr;gap:54px;align-items:center;padding:170px 0 96px}
+  .hero>*{min-width:0}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:44px;padding:140px 0 70px}}
+  h1{font-size:clamp(2.05rem,6.2vw,4.4rem);margin:18px 0 0;overflow-wrap:break-word}
+  .lede{font-size:clamp(1.04rem,1.6vw,1.26rem);color:var(--ink-soft);max-width:540px;margin-top:24px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+  .hero-meta{display:flex;align-items:center;gap:10px;margin-top:26px;font-size:.9rem;color:var(--ink-soft);max-width:520px}
   .stars{color:var(--accent-2);letter-spacing:2px}
-  .hero-rule{height:1px;background:linear-gradient(90deg,var(--line),transparent);margin:60px 0 0}
+
+  /* hero visual: browser-framed live sites */
+  .hero-visual{position:relative;height:100%;min-height:380px;display:flex;align-items:center;justify-content:center}
+  @media(max-width:900px){.hero-visual{min-height:0;margin-top:6px}}
+  .frame{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 50px 90px -40px rgba(22,21,15,.5)}
+  .frame .bar{height:30px;background:#efece4;display:flex;align-items:center;gap:7px;padding:0 13px;border-bottom:1px solid var(--line)}
+  .frame .bar i{width:9px;height:9px;border-radius:50%;background:#cfc9bb}
+  .frame img{display:block;width:100%;height:auto}
+  .frame-front{position:relative;z-index:2;width:100%;max-width:430px;animation:floaty 7s ease-in-out infinite}
+  .frame-back{position:absolute;z-index:1;top:-30px;right:-6px;width:62%;max-width:280px;transform:rotate(3deg);opacity:.96;animation:floaty 7s ease-in-out infinite reverse}
+  @media(max-width:900px){.frame-back{display:none}.frame-front{max-width:420px;margin:0 auto}}
+  .live-badge{position:absolute;left:14px;bottom:14px;z-index:3;display:inline-flex;align-items:center;gap:7px;background:rgba(22,21,15,.86);color:#fff;font-family:'Space Grotesk',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:100px;backdrop-filter:blur(4px)}
+  .live-badge .pulse{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.7);animation:pulse 2s infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .frame-back{animation-name:floaty}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+  @media(prefers-reduced-motion:reduce){.frame-front,.frame-back{animation:none}.frame-back{transform:rotate(3deg)}.pulse{animation:none}}
+
+  .hero-rule{height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 
   /* ---------- STATS ---------- */
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:54px 0}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:50px 0;border-top:1px solid var(--line)}
   .stat .num{font-family:'Fraunces',serif;font-size:clamp(2.4rem,5vw,3.4rem);line-height:1}
   .stat .lab{color:var(--ink-soft);font-size:.95rem;margin-top:8px}
-  @media(max-width:680px){.stats{grid-template-columns:1fr;gap:30px;text-align:left}}
+  @media(max-width:680px){.stats{grid-template-columns:1fr;gap:28px}}
 
-  /* ---------- SECTION HEADINGS ---------- */
-  section{padding:46px 0}
+  /* ---------- SECTIONS ---------- */
+  section{padding:48px 0}
   .sec-head{max-width:680px;margin-bottom:44px}
   .sec-head h2{font-size:clamp(2rem,4.5vw,3rem);margin-top:14px}
   .sec-head p{color:var(--ink-soft);margin-top:16px;font-size:1.05rem}
@@ -122,11 +148,7 @@
   /* ---------- WORK ---------- */
   .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
   @media(max-width:760px){.work-grid{grid-template-columns:1fr}}
-  .card{
-    background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);
-    overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease);
-    display:flex;flex-direction:column;
-  }
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease);display:flex;flex-direction:column}
   .card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -34px rgba(0,0,0,.45)}
   .card .shot{aspect-ratio:16/10;overflow:hidden;background:var(--ink)}
   .card .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .6s var(--ease)}
@@ -135,61 +157,52 @@
   .card .cat{font-family:'Space Grotesk',monospace;text-transform:uppercase;letter-spacing:.16em;font-size:.68rem;color:var(--accent)}
   .card h3{font-size:1.4rem}
   .card .loc{color:var(--ink-soft);font-size:.9rem}
-  .card .view{margin-top:12px;display:inline-flex;align-items:center;gap:7px;font-size:.9rem;font-weight:500;color:var(--ink)}
+  .card .view{margin-top:12px;display:inline-flex;align-items:center;gap:7px;font-size:.9rem;font-weight:600;color:var(--ink)}
   .card .view .arrow{transition:transform .3s var(--ease)}
   .card:hover .view .arrow{transform:translate(3px,-3px)}
 
   /* ---------- SERVICES ---------- */
   .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
   @media(max-width:760px){.svc-grid{grid-template-columns:1fr}}
-  .svc{background:var(--paper);padding:34px 28px}
+  .svc{background:var(--paper);padding:34px 28px;transition:background .3s}
+  .svc:hover{background:var(--paper-2)}
   .svc .n{font-family:'Space Grotesk',monospace;color:var(--accent);font-size:.85rem}
   .svc h3{font-size:1.3rem;margin:14px 0 10px}
   .svc p{color:var(--ink-soft);font-size:.96rem}
 
   /* ---------- ABOUT ---------- */
-  .about{display:grid;grid-template-columns:0.85fr 1.15fr;gap:54px;align-items:center}
+  .about{display:grid;grid-template-columns:.85fr 1.15fr;gap:54px;align-items:center}
   @media(max-width:820px){.about{grid-template-columns:1fr;gap:36px}}
-  .portrait{
-    position:relative;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;
-    background:linear-gradient(145deg,#27392f,#16150F);
-    display:flex;align-items:center;justify-content:center;
-    border:1px solid var(--line);
-  }
-  /* PLACEHOLDER PORTRAIT — swap by replacing this block with:
-     <img src="images/eli.jpg" alt="Eli, founder of Northlight Studio" style="width:100%;height:100%;object-fit:cover" /> */
-  .portrait .mono{font-family:'Fraunces',serif;font-size:7rem;color:var(--paper);opacity:.9;line-height:1}
+  .portrait{position:relative;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;background:linear-gradient(150deg,#2b4337,#16150F);display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+  /* PLACEHOLDER PORTRAIT — replace this block with:
+     <img src="images/eli.jpg" alt="Eli, founder of Northlight Studio" style="width:100%;height:100%;object-fit:cover"> */
+  .portrait .mono{font-family:'Fraunces',serif;font-size:7rem;color:var(--paper);opacity:.92;line-height:1}
   .portrait .ph-tag{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-family:'Space Grotesk',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,245,239,.6)}
   .about-text h2{font-size:clamp(2rem,4.5vw,3rem)}
   .about-text p{color:var(--ink-soft);margin-top:18px;font-size:1.06rem}
   .about-text .sig{font-family:'Fraunces',serif;font-style:italic;font-size:1.3rem;color:var(--ink);margin-top:22px}
 
   /* ---------- CONTACT ---------- */
-  .contact{background:var(--ink);color:var(--paper);border-radius:28px;padding:64px 48px;margin:30px 0}
+  .contact{background:var(--ink);color:var(--paper);border-radius:28px;padding:64px 52px;overflow:hidden;position:relative}
   @media(max-width:680px){.contact{padding:44px 26px}}
   .contact .eyebrow{color:var(--accent-2)}
   .contact h2{color:var(--paper);font-size:clamp(2.1rem,5vw,3.4rem);margin-top:14px}
-  .contact p.sub{color:rgba(247,245,239,.72);margin-top:18px;max-width:540px;font-size:1.08rem}
+  .contact p.sub{color:rgba(247,245,239,.74);margin-top:18px;max-width:540px;font-size:1.08rem}
   .contact-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;align-items:center}
-  .btn-light{background:var(--paper);color:var(--ink)}
-  .btn-light:hover{transform:translateY(-2px)}
-  .btn-outline{background:transparent;color:var(--paper);border:1px solid rgba(247,245,239,.4)}
-  .btn-outline:hover{background:rgba(247,245,239,.1);transform:translateY(-2px)}
-  .ig-soon{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:rgba(247,245,239,.55)}
+  .ig-soon{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:rgba(247,245,239,.6)}
   .ig-soon .pill{font-family:'Space Grotesk',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(247,245,239,.3);border-radius:100px;padding:3px 9px}
-
-  /* hire form */
   .form{margin-top:40px;border-top:1px solid rgba(247,245,239,.16);padding-top:34px}
   .form .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:560px){.form .row{grid-template-columns:1fr}}
-  .form input,.form textarea{
-    width:100%;background:rgba(247,245,239,.06);border:1px solid rgba(247,245,239,.2);
-    color:var(--paper);border-radius:12px;padding:14px 16px;font-family:inherit;font-size:.96rem;margin-top:14px;
-  }
-  .form input::placeholder,.form textarea::placeholder{color:rgba(247,245,239,.5)}
-  .form input:focus,.form textarea:focus{outline:none;border-color:var(--accent-2)}
+  .form input,.form textarea{width:100%;background:rgba(247,245,239,.06);border:1px solid rgba(247,245,239,.22);color:var(--paper);border-radius:12px;padding:14px 16px;font-family:inherit;font-size:.96rem;margin-top:14px}
+  .form input::placeholder,.form textarea::placeholder{color:rgba(247,245,239,.55)}
+  .form input:focus,.form textarea:focus{outline:none;border-color:var(--accent-2);background:rgba(247,245,239,.1)}
   .form .row input{margin-top:0}
-  .form button{margin-top:16px;width:100%;justify-content:center}
+  .form button{margin-top:16px;width:100%}
+  .form-status{margin-top:16px;font-size:.96rem;display:none}
+  .form-status.show{display:block}
+  .form-status.ok{color:#7ee0a8}
+  .form-status.err{color:#f0a3a3}
 
   /* ---------- FOOTER ---------- */
   footer{padding:54px 0 70px;border-top:1px solid var(--line);margin-top:30px}
@@ -205,37 +218,53 @@
 <body>
 
 <nav id="nav">
-  <a class="brand" href="#top"><span class="dot"></span> Northlight Studio</a>
-  <div class="nav-links">
-    <a href="#work">Work</a>
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a class="btn btn-solid nav-cta" href="tel:+16124038376">Let's talk</a>
+  <div class="nav-inner">
+    <a class="brand" href="#top"><span class="dot"></span> Northlight Studio</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navlinks">
+      <a class="link" href="#work">Work</a>
+      <a class="link" href="#services">Services</a>
+      <a class="link" href="#about">About</a>
+      <a class="btn btn-accent nav-cta" href="#contact">Let's talk</a>
+    </div>
   </div>
 </nav>
 
 <header id="top">
-  <div class="wrap hero-grid">
-    <span class="eyebrow reveal">Web design studio · Minneapolis, MN</span>
-    <h1 class="reveal">Websites that make a local business <span class="accent-word">the obvious choice.</span></h1>
-    <p class="lede reveal">Northlight Studio designs and builds fast, premium websites for cafés, restaurants, and trades — built from your real story, your real reviews, and your real photos. Live in days, not months.</p>
-    <div class="hero-cta reveal">
-      <a class="btn btn-solid" href="#work">See the work</a>
-      <a class="btn btn-ghost" href="tel:+16124038376">Call 612-403-8376</a>
+  <div class="hero-bg"></div>
+  <div class="wrap"><div class="hero">
+    <div class="hero-text">
+      <span class="eyebrow reveal">Web design studio · Minneapolis, MN</span>
+      <h1 class="reveal">Websites that make a local business <span class="accent-word">the obvious choice.</span></h1>
+      <p class="lede reveal">Northlight Studio designs and builds fast, premium websites for cafés, restaurants, and trades — built from your real story, reviews, and photos. Live in days, not months.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-dark" href="#work">See the work</a>
+        <a class="btn btn-ghost" href="tel:+16124038376">Call 612-403-8376</a>
+      </div>
+      <div class="hero-meta reveal">
+        <span class="stars">★★★★★</span>
+        <span>Real, live websites for real businesses — in Minnesota and beyond.</span>
+      </div>
     </div>
-    <div class="hero-meta reveal">
-      <span class="stars">★★★★★</span>
-      <span>Real sites, live on the web — for real Minnesota businesses and beyond.</span>
+    <div class="hero-visual reveal">
+      <div class="frame frame-back"><div class="bar"><i></i><i></i><i></i></div><img src="images/work/greek-village.jpg" alt="Greek Village Restaurant website" loading="lazy" /></div>
+      <div class="frame frame-front">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <img src="images/work/amboy.jpg" alt="The Amboy Cottage Café website" />
+        <span class="live-badge"><span class="pulse"></span> Live site</span>
+      </div>
     </div>
-  </div>
+  </div></div>
   <div class="wrap"><div class="hero-rule"></div></div>
 </header>
 
 <section style="padding-top:0">
-  <div class="wrap stats">
-    <div class="stat reveal"><div class="num" data-count="25" data-suffix="+">0</div><div class="lab">Sites designed & shipped</div></div>
-    <div class="stat reveal"><div class="num" data-count="20" data-suffix="+">0</div><div class="lab">Industries — cafés to trades</div></div>
-    <div class="stat reveal"><div class="num" data-count="100" data-suffix="%">0</div><div class="lab">Hand-built, fast & live</div></div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat reveal"><div class="num" data-count="25" data-suffix="+">0</div><div class="lab">Sites designed &amp; shipped</div></div>
+      <div class="stat reveal"><div class="num" data-count="20" data-suffix="+">0</div><div class="lab">Industries — cafés to trades</div></div>
+      <div class="stat reveal"><div class="num" data-count="100" data-suffix="%">0</div><div class="lab">Hand-built, fast &amp; live</div></div>
+    </div>
   </div>
 </section>
 
@@ -247,67 +276,30 @@
       <p>A few of the live sites I've designed and built — each one made specifically for that business, with its own identity, motion, and working buttons. Tap any to open it live.</p>
     </div>
     <div class="work-grid">
-
       <a class="card reveal" href="https://elitanz.github.io/amboy-cottage-cafe/" target="_blank" rel="noopener">
         <div class="shot"><img src="images/work/amboy.jpg" alt="The Amboy Cottage Café website" loading="lazy" /></div>
-        <div class="body">
-          <span class="cat">Café · Restaurant</span>
-          <h3>The Amboy Cottage Café</h3>
-          <span class="loc">Amboy, Minnesota</span>
-          <span class="view">View live <span class="arrow">↗</span></span>
-        </div>
+        <div class="body"><span class="cat">Café · Restaurant</span><h3>The Amboy Cottage Café</h3><span class="loc">Amboy, Minnesota</span><span class="view">View live <span class="arrow">↗</span></span></div>
       </a>
-
       <a class="card reveal" href="https://elitanz.github.io/mike-miller-plumbing/" target="_blank" rel="noopener">
         <div class="shot"><img src="images/work/mike-miller.jpg" alt="Mike Miller Plumbing website" loading="lazy" /></div>
-        <div class="body">
-          <span class="cat">Trade · Plumbing</span>
-          <h3>Mike Miller Plumbing</h3>
-          <span class="loc">Excelsior · Lake Minnetonka, MN</span>
-          <span class="view">View live <span class="arrow">↗</span></span>
-        </div>
+        <div class="body"><span class="cat">Trade · Plumbing</span><h3>Mike Miller Plumbing</h3><span class="loc">Excelsior · Lake Minnetonka, MN</span><span class="view">View live <span class="arrow">↗</span></span></div>
       </a>
-
       <a class="card reveal" href="https://elitanz.github.io/brad-donahue-window-cleaning/" target="_blank" rel="noopener">
         <div class="shot"><img src="images/work/brad-donahue.jpg" alt="Brad Donahue Window Cleaning website" loading="lazy" /></div>
-        <div class="body">
-          <span class="cat">Trade · Window cleaning</span>
-          <h3>Brad Donahue's Window Cleaning</h3>
-          <span class="loc">Faribault, Minnesota</span>
-          <span class="view">View live <span class="arrow">↗</span></span>
-        </div>
+        <div class="body"><span class="cat">Trade · Window cleaning</span><h3>Brad Donahue's Window Cleaning</h3><span class="loc">Faribault, Minnesota</span><span class="view">View live <span class="arrow">↗</span></span></div>
       </a>
-
       <a class="card reveal" href="https://elitanz.github.io/christines-sewing-alterations/" target="_blank" rel="noopener">
         <div class="shot"><img src="images/work/christines.jpg" alt="Christine's Sewing Alterations website" loading="lazy" /></div>
-        <div class="body">
-          <span class="cat">Service · Bridal alterations</span>
-          <h3>Christine's Sewing Alterations</h3>
-          <span class="loc">Minneapolis, Minnesota</span>
-          <span class="view">View live <span class="arrow">↗</span></span>
-        </div>
+        <div class="body"><span class="cat">Service · Bridal alterations</span><h3>Christine's Sewing Alterations</h3><span class="loc">Minneapolis, Minnesota</span><span class="view">View live <span class="arrow">↗</span></span></div>
       </a>
-
       <a class="card reveal" href="https://elitanz.github.io/honest-auto/" target="_blank" rel="noopener">
         <div class="shot"><img src="images/work/honest-auto.jpg" alt="Honest Auto Inc. website" loading="lazy" /></div>
-        <div class="body">
-          <span class="cat">Trade · Auto repair</span>
-          <h3>Honest Auto Inc.</h3>
-          <span class="loc">Plymouth, Minnesota</span>
-          <span class="view">View live <span class="arrow">↗</span></span>
-        </div>
+        <div class="body"><span class="cat">Trade · Auto repair</span><h3>Honest Auto Inc.</h3><span class="loc">Plymouth, Minnesota</span><span class="view">View live <span class="arrow">↗</span></span></div>
       </a>
-
       <a class="card reveal" href="https://elitanz.github.io/greek-village/" target="_blank" rel="noopener">
         <div class="shot"><img src="images/work/greek-village.jpg" alt="Greek Village Restaurant website" loading="lazy" /></div>
-        <div class="body">
-          <span class="cat">Restaurant · Mediterranean</span>
-          <h3>Greek Village Restaurant</h3>
-          <span class="loc">Warner Robins, Georgia</span>
-          <span class="view">View live <span class="arrow">↗</span></span>
-        </div>
+        <div class="body"><span class="cat">Restaurant · Mediterranean</span><h3>Greek Village Restaurant</h3><span class="loc">Warner Robins, Georgia</span><span class="view">View live <span class="arrow">↗</span></span></div>
       </a>
-
     </div>
   </div>
 </section>
@@ -322,8 +314,8 @@
     <div class="svc-grid">
       <div class="svc reveal"><div class="n">01</div><h3>Custom design</h3><p>A unique look built for your business — your colors, your photos, your voice. Never a generic template.</p></div>
       <div class="svc reveal"><div class="n">02</div><h3>Built from real data</h3><p>Your real menu, services, hours, reviews, and contact info — pulled together so everything actually works.</p></div>
-      <div class="svc reveal"><div class="n">03</div><h3>Motion & polish</h3><p>Cinematic, scroll-driven sites that feel premium and load fast on phones — where your customers actually are.</p></div>
-      <div class="svc reveal"><div class="n">04</div><h3>Live & hosted</h3><p>Every site goes live on a real, shareable web address — ready to put on Google, cards, and your front door.</p></div>
+      <div class="svc reveal"><div class="n">03</div><h3>Motion &amp; polish</h3><p>Cinematic, scroll-driven sites that feel premium and load fast on phones — where your customers actually are.</p></div>
+      <div class="svc reveal"><div class="n">04</div><h3>Live &amp; hosted</h3><p>Every site goes live on a real, shareable web address — ready to put on Google, cards, and your front door.</p></div>
       <div class="svc reveal"><div class="n">05</div><h3>Every button works</h3><p>Tap to call, get directions, see the menu, book, or message — all wired up and tested before you see it.</p></div>
       <div class="svc reveal"><div class="n">06</div><h3>Fast turnaround</h3><p>Using the latest AI tools, I move faster than a traditional agency — most sites are live in days, not months.</p></div>
     </div>
@@ -333,7 +325,7 @@
 <section id="about">
   <div class="wrap about">
     <div class="portrait reveal">
-      <!-- PLACEHOLDER PORTRAIT — replace the line below with: <img src="images/eli.jpg" alt="Eli, founder" style="width:100%;height:100%;object-fit:cover"> -->
+      <!-- PLACEHOLDER PORTRAIT — replace with: <img src="images/eli.jpg" alt="Eli, founder" style="width:100%;height:100%;object-fit:cover"> -->
       <div class="mono">E</div>
       <div class="ph-tag">Your photo here</div>
     </div>
@@ -341,7 +333,7 @@
       <span class="eyebrow">About</span>
       <h2>Hi, I'm Eli.</h2>
       <p>I'm 15, based in Minneapolis, and I founded Northlight Studio to do one thing really well: build local businesses the kind of website that makes people stop scrolling and walk in the door.</p>
-      <p>I've designed and built dozens of sites for real businesses — cafés, restaurants, plumbers, window cleaners, alterations shops, and more. I pair genuine design craft with the latest AI tools, which means I can move faster and charge less than a traditional agency, without ever shipping something that looks "made by a robot."</p>
+      <p>I've designed and built dozens of sites for real businesses — cafés, restaurants, plumbers, window cleaners, alterations shops, and more. I pair genuine design craft with the latest AI tools, which means I move faster and charge less than a traditional agency, without ever shipping something that looks "made by a robot."</p>
       <p>Every project starts with your real story — your reviews, your photos, your hours — and ends with a fast, beautiful site that's live on the web and ready to win you customers.</p>
       <div class="sig">— Eli, Northlight Studio</div>
     </div>
@@ -358,18 +350,18 @@
         <a class="btn btn-light" href="tel:+16124038376">📞 Call or text 612-403-8376</a>
         <span class="ig-soon">Instagram <span class="pill">coming soon</span></span>
       </div>
-
-      <form class="form" action="https://formsubmit.co/yayawatson@gmail.com" method="POST">
+      <form class="form" id="hireForm" action="https://formsubmit.co/ajax/yayawatson@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New lead from Northlight Studio site" />
-        <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
         <div class="row">
           <input type="text" name="name" placeholder="Your name" required />
           <input type="text" name="business" placeholder="Business name" />
         </div>
         <input type="text" name="contact" placeholder="Phone or email so I can reach you" required />
         <textarea name="message" rows="3" placeholder="Tell me a little about your business…"></textarea>
-        <button class="btn btn-light" type="submit">Send it over →</button>
+        <button class="btn btn-accent" type="submit" id="hireBtn">Send it over →</button>
+        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
       </form>
     </div>
   </div>
@@ -386,8 +378,19 @@
 <script>
   // nav solidify on scroll
   const nav = document.getElementById('nav');
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 30);
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
   window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // mobile menu
+  const burger = document.getElementById('hamburger');
+  const navlinks = document.getElementById('navlinks');
+  const closeMenu = () => { burger.classList.remove('open'); navlinks.classList.remove('open'); burger.setAttribute('aria-expanded','false'); };
+  burger.addEventListener('click', () => {
+    const open = navlinks.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true':'false');
+  });
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
   // year
   document.getElementById('yr').textContent = new Date().getFullYear();
@@ -399,23 +402,41 @@
   document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(Math.min(i,6)*40)+'ms'; io.observe(el); });
 
   // count-up stats
-  const countEls = document.querySelectorAll('.num[data-count]');
   const cio = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(!e.isIntersecting) return;
       const el = e.target, target = +el.dataset.count, suffix = el.dataset.suffix||'';
       const dur = 1400, t0 = performance.now();
-      const tick = (now)=>{
-        const p = Math.min((now-t0)/dur,1);
-        const val = Math.round((1-Math.pow(1-p,3))*target);
-        el.textContent = val + suffix;
-        if(p<1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-      cio.unobserve(el);
+      const tick = (now)=>{ const p = Math.min((now-t0)/dur,1); el.textContent = Math.round((1-Math.pow(1-p,3))*target)+suffix; if(p<1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); cio.unobserve(el);
     });
   },{threshold:.6});
-  countEls.forEach(el=>cio.observe(el));
+  document.querySelectorAll('.num[data-count]').forEach(el=>cio.observe(el));
+
+  // contact form — AJAX submit with inline status (no page redirect)
+  const form = document.getElementById('hireForm');
+  const status = document.getElementById('formStatus');
+  const btn = document.getElementById('hireBtn');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    btn.disabled = true; const label = btn.textContent; btn.textContent = 'Sending…';
+    status.className = 'form-status';
+    try{
+      const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' } });
+      if(res.ok){
+        form.reset();
+        status.textContent = "Thanks — your message is on its way. I'll get back to you soon at the phone or email you gave.";
+        status.className = 'form-status ok show';
+      } else {
+        throw new Error('bad status');
+      }
+    }catch(err){
+      status.innerHTML = "Hmm, that didn't go through. Please call or text <a href='tel:+16124038376' style='color:#7ee0a8'>612-403-8376</a> instead.";
+      status.className = 'form-status err show';
+    }finally{
+      btn.disabled = false; btn.textContent = label;
+    }
+  });
 </script>
 </body>
 </html>
