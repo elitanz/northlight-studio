@@ -12,6 +12,6 @@ Personal / agency website for **Eli** — founder of Northlight Studio, a Minnea
 ### To personalize
 - **Add your photo:** in `index.html`, find the `PLACEHOLDER PORTRAIT` comment in the About section and replace the monogram block with `<img src="images/eli.jpg" ...>`.
 - **Instagram:** the contact section has an "Instagram — coming soon" pill; wire it to the real profile URL once the account exists.
-- **Contact form:** posts to FormSubmit (yayawatson@gmail.com). The first submission triggers a one-time activation email from FormSubmit — click it once to start receiving leads.
+- **Contact form:** posts to FormSubmit (elit@lakecountryschool.org). The first submission triggers a one-time activation email from FormSubmit — click it once to start receiving leads.
 
 Built by Eli.
